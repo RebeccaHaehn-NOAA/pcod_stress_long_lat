@@ -1,4 +1,4 @@
-# title Pacific cod stress long/lat data retrival
+# title Pacific cod stress long/lat data retrieval
 # create date: 5 June 2025
 # modify data:
 # contact info: rebecca.haehn@noaa.gov
@@ -18,7 +18,7 @@ channel <- odbcConnect(dsn = "AFSC",
 
 # import haul data from oracle
 haul_table <- sqlQuery(channel, "
-                      SELECT a.cruise, b.year, a.vessel,
+                      SELECT survey_definition_id, a.cruise, b.year, a.vessel,
                              a.stationid, a.haul, a.start_latitude, a.start_longitude,
                              a.end_latitude, a.end_longitude
                 
@@ -30,7 +30,8 @@ haul_table <- sqlQuery(channel, "
          
                       WHERE
                         
-                        survey_definition_id = 98 AND 
+                        survey_definition_id = 98 OR
+                        survey_definition_id = 143 AND 
                         gear = 44;
                        ")
 
@@ -40,7 +41,7 @@ haul_table <- clean_names(haul_table) #clean up column names
 stress_hauls <- read_csv(here("data", "Stress GPS.csv"), col_select = c("Date", "Cruise", "Haul"))
 stress_hauls <- clean_names(stress_hauls) #clean up column names
 
-# add in vessel code (checked with PI for info)
+# add in vessel code (in email from PI)
 stress_hauls$vessel <- 162
 
 #join oracle haul data with stress haul data
