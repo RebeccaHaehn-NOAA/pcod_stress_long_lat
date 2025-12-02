@@ -55,3 +55,6 @@ species_agedata <- clean_names(species_agedata) #clean up column names
 filter <- species_agedata %>%
   left_join(haul_table) %>%
   filter(year %in% c(2021, 2022))
+
+# export dataframe as csv
+write_csv(filter, here("output", "pcod_pollock_ages.csv"))
