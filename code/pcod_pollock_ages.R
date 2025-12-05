@@ -18,7 +18,7 @@ channel <- odbcConnect(dsn = "AFSC",
 
 # import haul data from oracle
 haul_table <- sqlQuery(channel, "
-                      SELECT survey_definition_id, hauljoin, a.cruise, b.year, a.vessel,
+                      SELECT survey_definition_id, hauljoin, a.cruise, b.year, a.start_time, a.vessel,
                              a.stationid, a.haul, a.start_latitude, a.start_longitude,
                              a.end_latitude, a.end_longitude
                 
@@ -48,7 +48,7 @@ species_agedata <- sqlQuery(channel, "
                       WHERE
                        
                         species_code in (21720, 21740) AND
-                        vessel = 162; 
+                        vessel in (162, 94, 148); 
                        ")
 species_agedata <- clean_names(species_agedata) #clean up column names
 
