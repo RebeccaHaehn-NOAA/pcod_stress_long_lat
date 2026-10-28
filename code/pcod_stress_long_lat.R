@@ -20,7 +20,7 @@ channel <- odbcConnect(dsn = "AFSC",
 haul_table <- sqlQuery(channel, "
                       SELECT survey_definition_id, a.cruise, b.year, a.vessel,
                              a.stationid, a.haul, a.start_latitude, a.start_longitude,
-                             a.end_latitude, a.end_longitude
+                             a.end_latitude, a.end_longitude, a.gear_temperature
                 
                       FROM RACEBASE.HAUL a
          
